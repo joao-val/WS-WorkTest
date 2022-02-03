@@ -8,14 +8,17 @@ import java.util.Set;
 @Table(name = "tb_factories")
 public class Factory {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
     private String name;
     private String country_code;
 
     @OneToMany
-    private Set<Car> cars = new HashSet<>();
+    private Set<Car> cars;
 
     public Factory() {
 
@@ -40,4 +43,13 @@ public class Factory {
     public void setCountry_code(String country_code) {
         this.country_code = country_code;
     }
+
+    public Set<Car> getCars(){
+        return cars;
+    }
+
+    public void setCars(Set<Car> cars){
+        this.cars = cars;
+    }
+
 }
