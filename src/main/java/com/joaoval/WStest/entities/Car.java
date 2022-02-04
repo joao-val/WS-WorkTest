@@ -31,7 +31,8 @@ public class Car {
     @Column(nullable = false)
     private String color;
 
-    @ManyToOne()
+
+    @ManyToOne(targetEntity = Factory.class, optional = false)
     @JoinColumn(name = "factory_id", referencedColumnName = "id")
     private Factory factory;
 

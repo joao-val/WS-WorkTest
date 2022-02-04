@@ -12,8 +12,8 @@ public class FactoryDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private String name;
-    private String country_code;
+    private String factoryName;
+    private String countryCode;
 
     private Set<CarDTO> cars;
 
@@ -21,17 +21,17 @@ public class FactoryDTO implements Serializable {
 
     }
 
-    public FactoryDTO(Long id, String name, String country_code, Set<CarDTO> cars){
+    public FactoryDTO(Long id, String factoryName, String countryCode, Set<CarDTO> cars){
         this.id = id;
-        this.name = name;
-        this.country_code = country_code;
+        this.factoryName = factoryName;
+        this.countryCode = countryCode;
         this.cars = cars;
     }
 
     public FactoryDTO(Factory factory) {
         id = factory.getId();
-        name = factory.getName();
-        country_code = factory.getCountry_code();
+        factoryName = factory.getFactoryName();
+        countryCode = factory.getCountryCode();
         cars = new HashSet<>(factory.getCars().stream().map(CarDTO::new).toList());
     }
 
@@ -39,12 +39,12 @@ public class FactoryDTO implements Serializable {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getFactoryName() {
+        return factoryName;
     }
 
-    public String getCountry_code() {
-        return country_code;
+    public String getCountryCode() {
+        return countryCode;
     }
 
     public Set<CarDTO> getCars() {

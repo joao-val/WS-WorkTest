@@ -1,11 +1,10 @@
 package com.joaoval.WStest.entities;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "tb_factories")
+@Table(name = "tb_factory")
 public class Factory {
 
 
@@ -14,10 +13,10 @@ public class Factory {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String name;
-    private String country_code;
+    private String factoryName;
+    private String countryCode;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tb_factory")
     private Set<Car> cars;
 
     public Factory() {
@@ -28,20 +27,20 @@ public class Factory {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getFactoryName() {
+        return factoryName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFactoryName(String factoryName) {
+        this.factoryName = factoryName;
     }
 
-    public String getCountry_code() {
-        return country_code;
+    public String getCountryCode() {
+        return countryCode;
     }
 
-    public void setCountry_code(String country_code) {
-        this.country_code = country_code;
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 
     public Set<Car> getCars(){
