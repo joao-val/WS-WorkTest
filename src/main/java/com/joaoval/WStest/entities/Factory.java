@@ -1,5 +1,7 @@
 package com.joaoval.WStest.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -14,13 +16,14 @@ public class Factory {
 
     @Column(nullable = false, unique = true)
     private String factoryName;
+
     private String countryCode;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tb_factory")
+    @JsonBackReference
     private Set<Car> cars;
 
     public Factory() {
-
     }
 
     public Long getId() {

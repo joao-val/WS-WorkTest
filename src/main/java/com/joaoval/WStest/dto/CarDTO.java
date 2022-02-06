@@ -1,17 +1,20 @@
 package com.joaoval.WStest.dto;
 
 import com.joaoval.WStest.entities.Car;
+import com.joaoval.WStest.entities.enums.FuelType;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class CarDTO implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private final Long id;
     private final String model;
     private final Short year;
-    private final String fuel;
+    private final FuelType fuel;
     private final Short doors;
     private final BigDecimal cost;
     private final String color;
@@ -39,7 +42,7 @@ public class CarDTO implements Serializable {
         return year;
     }
 
-    public String getFuel() {
+    public FuelType getFuel() {
         return fuel;
     }
 

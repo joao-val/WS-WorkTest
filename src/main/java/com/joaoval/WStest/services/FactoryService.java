@@ -17,7 +17,7 @@ import java.util.Optional;
 public class FactoryService {
 
     @Autowired
-    private FactoryRepository factoryRepository;
+    private final FactoryRepository factoryRepository;
 
     @Autowired
     public FactoryService(FactoryRepository factoryRepository) {
@@ -39,17 +39,17 @@ public class FactoryService {
     }
 
     public FactoryDTO findFactory(Long id) {
-        Optional<Factory> optional = factoryRepository.findByIdWithCars(id);
+        Optional<Factory> factoryOptional = factoryRepository.findByIdWithCars(id);
 
-        if (optional.isEmpty()){
+        if (factoryOptional.isEmpty()){
             throw new EntityNotFoundException(String.format("Factory with id %d not found", id));
         }
 
-        return new FactoryDTO(optional.get());
+        return new FactoryDTO(factoryOptional.get());
     }
 
     @Transactional
-    public FactoryDTO changeFactoryData(Long id, FactoryForm factoryForm) {
+    public FactoryDTO updateFactoryData(Long id, FactoryForm factoryForm) {
         Optional<Factory> optional = factoryRepository.findByIdWithCars(id);
 
         if (optional.isEmpty()){
