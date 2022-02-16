@@ -3,23 +3,24 @@ package com.joaoval.WStest.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "tb_factory")
-public class Factory {
+public class Factory implements Serializable {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column( unique = true)
     private String factoryName;
 
     private String countryCode;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tb_factory")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
     @JsonBackReference
     private Set<Car> cars;
 

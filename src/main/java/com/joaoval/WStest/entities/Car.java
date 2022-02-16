@@ -1,14 +1,14 @@
 package com.joaoval.WStest.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.joaoval.WStest.entities.enums.FuelType;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "tb_cars")
-public class Car {
+public class Car implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +25,8 @@ public class Car {
     @Column(nullable = false)
     private Short year;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private FuelType fuel;
+    private String fuel;
 
     @Column(nullable = false)
     private Short doors;
@@ -41,7 +40,7 @@ public class Car {
     public Car(){
     }
 
-    public Car(Factory factory, String model, Short year, FuelType fuel, Short doors, BigDecimal cost, String color) {
+    public Car(Factory factory, String model, Short year, String fuel, Short doors, BigDecimal cost, String color) {
         this.factory = factory;
         this.model = model;
         this.year = year;
@@ -53,6 +52,10 @@ public class Car {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id){
+        this.id = id;
     }
 
     public String getModel() {
@@ -71,11 +74,11 @@ public class Car {
         this.year = year;
     }
 
-    public FuelType getFuel() {
+    public String getFuel() {
         return fuel;
     }
 
-    public void setFuel(FuelType fuel) {
+    public void setFuel(String fuel) {
         this.fuel = fuel;
     }
 
@@ -110,4 +113,13 @@ public class Car {
     public void setFactory(Factory factory) {
         this.factory = factory;
     }
+
+    public boolean compare(Car oCar) {
+         if (oCar.getId() == this.id && oCar.getFactory().getId() == this.factory.getId()) {
+             return true;
+         } else {
+             return false;
+         }
+    }
+
 }

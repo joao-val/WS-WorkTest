@@ -1,6 +1,6 @@
 package com.joaoval.WStest.controllers;
 
-import com.joaoval.WStest.controllers.forms.CarForm;
+import com.joaoval.WStest.forms.CarForm;
 import com.joaoval.WStest.dto.CarDTO;
 import com.joaoval.WStest.entities.Car;
 import com.joaoval.WStest.services.CarService;
@@ -18,12 +18,11 @@ import java.math.BigDecimal;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/car")
+@RequestMapping("/cars")
 public class CarController {
 
     private final CarService carService;
 
-    @Autowired
     public CarController(CarService carService){
         this.carService = carService;
     }
@@ -32,7 +31,7 @@ public class CarController {
     public ResponseEntity<Car> addCarToDB(@RequestBody @Valid CarForm carForm, UriComponentsBuilder builder){
         Car car = carService.addCar(carForm);
 
-        URI uri = builder.path("/car/{id}").buildAndExpand(car.getId()).toUri();
+        URI uri = builder.path("/cars/{id}").buildAndExpand(car.getId()).toUri();
 
         return ResponseEntity.created(uri).body(car);
     }

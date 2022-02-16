@@ -1,6 +1,5 @@
-package com.joaoval.WStest.controllers.forms;
+package com.joaoval.WStest.forms;
 
-import com.joaoval.WStest.entities.enums.FuelType;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
@@ -18,7 +17,7 @@ public class CarForm {
     private Short year;
 
     @NotNull(message = "A valid fuelType is required")
-    private FuelType fuelType;
+    private String fuelType;
 
     @Length(min = 1, max = 4, message = "The doors number must be between {min}-{max}")
     @NotNull(message = "A valid number os doors is required")
@@ -54,11 +53,11 @@ public class CarForm {
         this.year = year;
     }
 
-    public FuelType getFuelType() {
+    public String getFuelType() {
         return fuelType;
     }
 
-    public void setFuelType(FuelType fuelType) {
+    public void setFuelType(String fuelType) {
         this.fuelType = fuelType;
     }
 
@@ -93,4 +92,5 @@ public class CarForm {
     public void setFactoryId(Long factoryId) {
         this.factoryId = factoryId;
     }
+
 }

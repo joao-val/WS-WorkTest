@@ -1,6 +1,6 @@
 package com.joaoval.WStest.controllers;
 
-import com.joaoval.WStest.controllers.forms.FactoryForm;
+import com.joaoval.WStest.forms.FactoryForm;
 import com.joaoval.WStest.dto.FactoryDTO;
 import com.joaoval.WStest.entities.Factory;
 import com.joaoval.WStest.services.FactoryService;
@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/factory")
+@RequestMapping(value = "/factories")
 public class FactoryController {
 
     @Autowired
@@ -29,8 +29,7 @@ public class FactoryController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Factory>> listFactories(
-            @PageableDefault(sort = "id")Pageable page){
+    public ResponseEntity<Page<Factory>> listFactories(@PageableDefault(sort = "id")Pageable page){
         Page<Factory> factories = factoryService.listFactories(page);
 
         return ResponseEntity.ok(factories);
@@ -47,7 +46,7 @@ public class FactoryController {
 
         Factory factory = factoryService.createFactory(factoryForm);
 
-        URI uri = builder.path("/factory/{id}").buildAndExpand(factory.getId()).toUri();
+        URI uri = builder.path("/factories/{id}").buildAndExpand(factory.getId()).toUri();
 
         return ResponseEntity.created(uri).body(factory);
     }

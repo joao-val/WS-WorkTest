@@ -1,4 +1,4 @@
-package com.joaoval.WStest.controllers.forms;
+package com.joaoval.WStest.forms;
 
 import org.hibernate.validator.constraints.Length;
 

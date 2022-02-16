@@ -1,6 +1,6 @@
 package com.joaoval.WStest.services;
 
-import com.joaoval.WStest.controllers.forms.FactoryForm;
+import com.joaoval.WStest.forms.FactoryForm;
 import com.joaoval.WStest.dto.FactoryDTO;
 import com.joaoval.WStest.entities.Factory;
 import com.joaoval.WStest.repositories.FactoryRepository;

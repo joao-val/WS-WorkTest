@@ -1,19 +1,30 @@
 package com.joaoval.WStest.services;
 
-import com.joaoval.WStest.controllers.forms.CarForm;
+import com.joaoval.WStest.forms.CarForm;
 import com.joaoval.WStest.dto.CarDTO;
 import com.joaoval.WStest.entities.Car;
 import com.joaoval.WStest.entities.Factory;
 import com.joaoval.WStest.repositories.CarRepository;
 import com.joaoval.WStest.repositories.FactoryRepository;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Optional;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @Service
 public class CarService {
@@ -54,17 +65,7 @@ public class CarService {
             String color,
             Pageable pageable) {
 
-        Page<Car> carsList;
-
-        if (factoryName != null && color != null){
-            carsList = carRepository.findWithFilters(factoryName, yearMin, yearMax, doorsMin, doorsMax, costMin, costMax, color, pageable);
-        } else if (factoryName != null ){
-            carsList = carRepository.findWithFilters(factoryName, yearMin, yearMax, doorsMin, doorsMax, costMin, costMax, pageable);
-        } else if (color != null ){
-            carsList = carRepository.findWithFilters(yearMin, yearMax, doorsMin, doorsMax, costMin, costMax, color, pageable);
-        } else {
-            carsList = carRepository.findWithFilters(yearMin, yearMax, doorsMin, doorsMax, costMin, costMax, pageable);
-        }
+        Page<Car> carsList = carRepository.findWithFilters(factoryName, yearMin, yearMax, doorsMin, doorsMax, costMin, costMax, color, pageable);
 
         return carsList.map(CarDTO::new);
     }
@@ -112,4 +113,19 @@ public class CarService {
         carRepository.delete(car);
     }
 
+    public void upload(MultipartFile file) throws IOException {
+        Path tempPath = Files.createTempDirectory("");
+
+        File tempFile = tempPath.resolve(file.getOriginalFilename()).toFile();
+
+        Workbook workbook = WorkbookFactory.create(tempFile);
+
+        Sheet sheet = workbook.getSheetAt(0);
+
+        Stream<Row> rowStream = StreamSupport.stream(sheet.spliterator(), false);
+
+        rowStream.forEach(row ->{
+
+        });
+    }
 }

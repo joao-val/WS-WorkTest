@@ -11,9 +11,11 @@ import java.util.Optional;
 @Repository
 public interface FactoryRepository extends JpaRepository<Factory, Long> {
 
-    @Query(value = "SELECT F FROM Factory F" +
-            "LEFT JOIN FETCH F.cars C" +
-            "WHERE F.id = :id")
+    @Query(value = """
+            SELECT F FROM Factory F
+            LEFT JOIN FETCH F.cars C
+            WHERE F.id LIKE %:id%
+            """)
     Optional<Factory> findByIdWithCars(@Param("id") Long id);
 
     Optional<Factory> findByFactoryName(String name);
